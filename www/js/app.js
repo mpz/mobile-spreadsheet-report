@@ -1,4 +1,5 @@
-angular.module('gspreadsheet-report', ['ngRoute', 'gspreadsheet-report.services', 'gspreadsheet-report.controllers'])
+angular.module('gspreadsheet-report', ['ngRoute', 'gspreadsheet-report.services', 'gspreadsheet-report.directives', 
+    'gspreadsheet-report.controllers'])
     .config(function ($routeProvider) {
         $routeProvider
         .when('/', {
