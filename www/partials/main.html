@@ -1,66 +1,66 @@
 <h2> Main View: {{ status }} </h2>
 
+<div class="notification-bar">
+	<div class="notification error">
+		<p class="message">test</p>
+	</div>
+</div>
 
+<article class="widget ui-draggable loaded" style="top: 60px; left: 0px; width: auto; z-index: 5;">
+	<div class="widget-inner widget-size-1x1">
 
-<article class="widget clock ui-draggable loaded" id="widget-15119202" style="top: 20px; left: 0px; width: auto; z-index: 5;"><div class="widget-inner widget-size-1x1">
-  
-  
-  <section class="widget-body clock-widget no-title">
-    <div class="widget-canvas">
+	<section class="widget-body no-title">
+	<div class="widget-canvas">
 
-  <time class="time t-size-x60">6:14<sub>AM</sub></time>
+	<time class="t-size-x60" ng-bind="time.time"></time>
 
-  <time class="date t-secondary t-size-x24">
-    <span class="day">Sunday</span>
-    <span class="full-date">5 Jan 2014</span>
-  </time>
-    </div><!-- .widget-canvas -->
-  </section>
-  
-      <footer>
-        <div class="inner">
-          <span>Часы</span>
-        </div>
-      </footer>
-  
-</div><!-- .widget-inner -->
+	<time class="t-secondary t-size-x24">
+	<span ng-bind="time.day"></span>
+	<span ng-bind="time.date"></span>
+	</time>
+	</div><!-- .widget-canvas -->
+	</section>
 
+	  <footer>
+	    <div class="inner">
+	      <span>Часы</span>
+	    </div>
+	  </footer>
 
+	</div><!-- .widget-inner -->
 </article>
 
 
 
+<article ng-repeat="board in boards" class="widget" style="top: 300px; left: {{board.left}}; width: auto; z-index: 4;">
+    <div class="widget-inner widget-size-{{ board.size }}">
+        <header><h1>{{ board.header }}</h1></header>
+        <a class="led success" href="#"></a>
+        <section class="widget-body">
+            <div class="widget-canvas">
+            	<img src="{{board.img}}" ng-show="board.img">
+                <div class="main-stat t-size-x60">
+                    {{ board.main_stat }}
+                </div>
+                <div class="t-secondary t-size-x24">
+                    {{ board.value_1 }}
+                </div>
+                <div class="t-secondary t-size-x44">
+                    {{ board.value_2 }}
+                </div>
+            </div>
+        </section>
 
-<article class="widget custom-widgets ui-draggable loaded" id="widget-15119203" style="top: 20px; left: 240px; width: auto; z-index: 7;"><div class="widget-inner widget-size-2x1">
-  
-  <header>
-      <h1>Example Widget - Engagement Score</h1>
-    </header>
-  
-  
-    <a class="led success" href="#"></a>
-  
-  <section class="widget-body linechart-widget">
-    <div class="widget-canvas">
+        <footer>
+        	<div class="inner">
+	            <span>  {{ board.footer_title }}  </span>
 
-  <img src="https://chart.googleapis.com/chart?&amp;cht=ls&amp;chf=bg,s,23252600&amp;chs=440x148&amp;chma=0,0,10,0&amp;chd=t:123,126,115,115,128,130,121,135,138,140,136,145,140,135,140,143,145,150,153,150,154,156&amp;chds=115,156&amp;chxt=x,y&amp;chxl=0:|Apr|May|Jun|1:||&amp;chco=ff9900">
-    </div><!-- .widget-canvas -->
-  </section>
-  
-      <footer>
-        <div class="inner">
-          <span>Custom Widgets</span>
-
-          <ul class="widget-actions">
-            <li><a class="edit" href="#" title="Edit"></a></li>
-            <li><a class="copy" href="#" title="Copy"></a></li>
-            
-            <li><a class="delete" href="#" title="Delete"></a></li>
-          </ul>
-        </div>
-      </footer>
-  
-</div><!-- .widget-inner -->
-
-
+	            <ul class="widget-actions">
+	                <li><a class="edit" href="#" title="Edit"></a></li>
+	                <li><a class="copy" href="#" title="Copy"></a></li>
+	                <li><a class="delete" href="#" title="Delete"></a></li>
+	            </ul>
+        	</div>
+    	</footer>
+    </div>
 </article>
