@@ -35,13 +35,22 @@
 <article ng-repeat="board in boards" class="widget" style="top: 300px; left: {{board.left}}; width: auto; z-index: 4;">
     <div class="widget-inner widget-size-{{ board.size }}">
         <header><h1>{{ board.header }}</h1></header>
-        <a class="led success" href="#"></a>
+        <a class="led {{board.status}}" href="#"></a>
         <section class="widget-body">
             <div class="widget-canvas">
+            	{{ board.error_text }}
+
             	<img src="{{board.img}}" ng-show="board.img">
                 <div class="main-stat t-size-x60">
                     {{ board.main_stat }}
                 </div>
+
+
+				<div class="secondary-stat t-size-x30 arrow-{{board.second_stat_arrow}}">
+	          		<span>{{board.second_stat}}</span>
+	        	</div>
+
+
                 <div class="t-secondary t-size-x24">
                     {{ board.value_1 }}
                 </div>
@@ -54,12 +63,13 @@
         <footer>
         	<div class="inner">
 	            <span>  {{ board.footer_title }}  </span>
-
+	         <!--
 	            <ul class="widget-actions">
 	                <li><a class="edit" href="#" title="Edit"></a></li>
 	                <li><a class="copy" href="#" title="Copy"></a></li>
 	                <li><a class="delete" href="#" title="Delete"></a></li>
 	            </ul>
+	          -->
         	</div>
     	</footer>
     </div>

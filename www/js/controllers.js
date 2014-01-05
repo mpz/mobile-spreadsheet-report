@@ -22,11 +22,18 @@ angular.module('gspreadsheet-report.controllers', [])
                 try{
                 	$scope.boards = JSON.parse(data).data;
             	}catch(e){
-            		alert("Проблема с обработкой данных. Проверьте источник!");
+            		alert("Проблема с обработкой данных. Проверьте источник! Запятых быть не должно!");
             	}
                 angular.forEach($scope.boards, function(board, index){
                 	// собираем борды и меняем ; на , - иначе JSON выше падает
-                	eval("$scope.boards[index]={"+ board.split(";").join(",") + "}")
+                    try{
+                	   eval("$scope.boards[index]={"+ board.split(";").join(",") + "}")
+                       $scope.boards[index].status = "success";
+                    }catch(e){
+                        var msg = e.message + " for text: " + board
+                        $scope.boards[index]={error_text:msg}
+                        $scope.boards[index].status = "error";
+                    }
                 	if(!$scope.boards[index].size){
                 		$scope.boards[index].size="1x1";
                 	}
