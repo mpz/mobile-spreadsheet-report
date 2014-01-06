@@ -1,3 +1,5 @@
+
+// toch on mobile
 $.fn.draggable = function() {
   var offset = null;
   var start = function(e) {
@@ -20,91 +22,41 @@ $.fn.draggable = function() {
   this.bind("touchmove", moveMe);
 };
 
-$(".draggable").draggable();
+// simple drag and drop
+(function($){
+  $.fn.drag = function(o){
+    var o = $.extend({
+      start:function(){},   // при начале перетаскивания
+      stop:function(){} // при завершении перетаскивания
+    }, o);
+    return $(this).each(function(){
+      var d = $(this); // получаем текущий элемент
+      d.mousedown(function(e){ // при удерживании мыши
+        d.css('position','absolute');
+        $(document).unbind('mouseup'); // очищаем событие при отпускании мыши
+        o.start(d); // выполнение пользовательской функции
+        var f = d.offset(), // находим позицию курсора относительно элемента
+        x = e.pageX - f.left,  // слева
+        y = e.pageY - f.top;  // и сверху
 
+          $(document).mousemove(function(a){ // при перемещении мыши
+          d.css({'top' : a.pageY - y + 'px','left' : a.pageX - x + 'px'}); // двигаем блок
+        });
+        $(document).mouseup(function(){  // когда мышь отпущена
+          $(document).unbind('mousemove'); // убираем событие при перемещении мыши
+          o.stop(d); // выполнение пользовательской функции
+        });
+        return false;
+      });
+    });
+  }
+})(jQuery);
+
+
+function refresh_drag_events(){
+  $(".draggable").draggable();
+  $('#ball3').drag();
+}
 
 //  ========================================
 
-
-var ball = document.getElementById('ball3');
-
-
-function fixEvent(e) {
-  e = e || window.event;
-
-  if (!e.target) e.target = e.srcElement;
-
-  if (e.pageX == null && e.clientX != null ) { // если нет pageX..
-    var html = document.documentElement;
-    var body = document.body;
-
-    e.pageX = e.clientX + (html.scrollLeft || body && body.scrollLeft || 0);
-    e.pageX -= html.clientLeft || 0;
-
-    e.pageY = e.clientY + (html.scrollTop || body && body.scrollTop || 0);
-    e.pageY -= html.clientTop || 0;
-  }
-
-  if (!e.which && e.button) {
-    e.which = e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) )
-  }
-
-  return e;
-}
-
-
-function getCoords(elem) {
-    var box = elem.getBoundingClientRect();
-
-    var body = document.body;
-    var docElem = document.documentElement;
-
-    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
-    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
-
-    var clientTop = docElem.clientTop || body.clientTop || 0;
-    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
-
-    var top  = box.top +  scrollTop - clientTop;
-    var left = box.left + scrollLeft - clientLeft;
-
-    return { top: Math.round(top), left: Math.round(left) };
-}
-
-
-
-ball.onmousedown = function(e) {
-  var self = this;
-  e = fixEvent(e);
-
-  var coords = getCoords(this);
-
-  var shiftX = e.pageX - coords.left;
-  var shiftY = e.pageY - coords.top;
-
-
-  this.style.position = 'absolute';
-  document.body.appendChild(this);
-  moveAt(e);
-
-  this.style.zIndex = 1000; // над другими элементами
-
-  function moveAt(e) {
-    self.style.left = e.pageX - shiftX + 'px';
-    self.style.top = e.pageY - shiftY+ 'px';
-  }
-
-  document.onmousemove = function(e) {
-    e = fixEvent(e);
-    moveAt(e); 
-  };
-
-  this.onmouseup = function() {
-    document.onmousemove = self.onmouseup = null;
-  };
-
-}
-
-        ball.ondragstart = function() { 
-          return false; 
-        };
