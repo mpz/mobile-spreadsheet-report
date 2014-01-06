@@ -39,6 +39,7 @@ angular.module('gspreadsheet-report.controllers', [])
                 	}
                 })
                 $scope.$apply();
+                refresh_drag_events();
             });
         }
   		      
