@@ -23,18 +23,31 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/all.css" />
-        <title>Angular PhoneGap Seed</title>
+        <link rel="stylesheet" type="text/css" href="css/custom.css" />
+        <title>Spreadsheet Reporter</title>
 
         <script src="js/jquery.min.js"></script>
     </head>
     <body>
-        <div class="app-body">
-            <h1>gspreadsheet-report</h1>
-            
-            <a href="#/">Main View</a>
-            <a href="#/view">New View</a>
 
-            <div ng-view></div>
+
+        <header id="main-header" style="top: 0px;">
+            <div id="dashboard-admin-bar" class="clear">
+                <div class="inner dashboard-sized-el" style="max-width: 710px;" ng-controller="DashboardsCtrl">
+                    <a id="add-widget" class="btn" href="#add">новая</a>
+                    <a id="toggle-header" href="#" class="" style="bottom: 0px;"></a>
+
+                    <div class="dash-btns">
+                        <div ng-repeat="dashboard in dashboards">
+                            <a class="btn dashboard" href="#dashboard/{{dashboard.index}}">{{ dashboard.title }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="app-body">
+            <div ng-view class="workspace"></div>
         </div>
 
         <!-- Libs -->

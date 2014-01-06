@@ -1,0 +1,25 @@
+<h2>Добавление панели</h2>
+
+<p>Опубликуйте таблицу: Файл -> Опубликовать в Интернете, все листы</p>
+
+<section class="form">
+  <form class="light-ui" ng-submit="add()">
+    <fieldset>
+
+      <div class="form-field">
+        <label class="field-label">Название панели</label>
+        <input type="text" ng-model="title">
+      </div>
+
+      <div class="form-field">
+        <label class="field-label">Ключ Google таблицы, например 0AoharBNk0-AHdG5PFTaFhkWmt1aTl0N0E</label>
+        <input type="text" ng-model="key">
+      </div>
+
+      <div class="button-row form-field">
+        <input type="submit" class="btn" name="submit" value="Добавить">
+      </div>
+
+    </fieldset>
+  </form>
+</section>

@@ -2,13 +2,13 @@ angular.module('gspreadsheet-report', ['ngRoute', 'gspreadsheet-report.services'
     'gspreadsheet-report.controllers'])
     .config(function ($routeProvider) {
         $routeProvider
-        .when('/', {
+        .when('/dashboard/:id', {
             controller: 'MainCtrl',
             templateUrl: 'partials/main.html'
         })
-        .when('/view', {
-            controller: 'ViewCtrl',
-            templateUrl: 'partials/view.html'
+        .when('/add', {
+            controller: 'AddDashboardCtrl',
+            templateUrl: 'partials/add_dashboard.html'
         })
-        .otherwise({redirectTo: '/'});
+        .otherwise({redirectTo: '/dashboard/1'});
     });
