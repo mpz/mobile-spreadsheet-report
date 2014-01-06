@@ -32,8 +32,8 @@
 
 
 
-<article ng-repeat="board in boards" class="widget draggable" style="top: 300px; left: {{board.left}}; width: auto; z-index: 4;">
-    <div class="widget-inner widget-size-{{ board.size }}">
+<article ng-repeat="board in boards" class="widget" style="top: 300px; left: {{board.left}}; width: auto; z-index: 4;">
+    <div class="widget-inner draggable widget-size-{{ board.size }}">
         <header><h1>{{ board.header }}</h1></header>
         <a class="led {{board.status}}" href="#"></a>
         <section class="widget-body">
@@ -75,51 +75,6 @@
     </div>
 </article>
 
-<div class="draggable">Drag me!</div>
-    <div class="draggable">Drag me!</div>
 
-    <style type="text/css">
-      .draggable {
-        position: absolute;
-        left: 30px;
-        top: 600px;
-        width: 60px;
-        height: 60px;
-        margin-left: -30px;
-        margin-top: -30px;
+<img src="http://learn.javascript.ru/files/tutorial/browser/events/ball.gif" style="cursor: pointer; position: absolute; left: 412px; top: 200px; z-index: 1000;" width="50" height="50" id="ball3">
 
-        color: #FFF;
-        font: bold 16px Helvetica,Arial,Sans-serif;
-        text-align: center;
-        background-color: #ABF;
-        border: 3px solid #669;
-      }
-    </style>
-
-
-
-    <script type="text/javascript">
-      $.fn.draggable = function() {
-        var offset = null;
-        var start = function(e) {
-          var orig = e.originalEvent;
-          var pos = $(this).position();
-          offset = {
-            x: orig.changedTouches[0].pageX - pos.left,
-            y: orig.changedTouches[0].pageY - pos.top
-          };
-        };
-        var moveMe = function(e) {
-          e.preventDefault();
-          var orig = e.originalEvent;
-          $(this).css({
-            top: orig.changedTouches[0].pageY - offset.y,
-            left: orig.changedTouches[0].pageX - offset.x
-          });
-        };
-        this.bind("touchstart", start);
-        this.bind("touchmove", moveMe);
-      };
-
-      $(".draggable").draggable();
-    </script>
