@@ -54,9 +54,7 @@ $.fn.draggable = function() {
 
 
 function refresh_drag_events(){
-  $(".draggable").draggable();
-  $('#ball3').drag();
+  $(".draggable").drag();    // mouse
+  $(".draggable").draggable();  // touch
 }
-
-//  ========================================
 
