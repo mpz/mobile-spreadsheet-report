@@ -6,6 +6,10 @@ angular.module('gspreadsheet-report', ['ngRoute', 'gspreadsheet-report.services'
             controller: 'MainCtrl',
             templateUrl: 'partials/main.html'
         })
+        .when('/dashboard/key/:key', {
+            controller: 'MainCtrl',
+            templateUrl: 'partials/main.html'
+        })
         .when('/add', {
             controller: 'AddDashboardCtrl',
             templateUrl: 'partials/add_dashboard.html'
