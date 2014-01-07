@@ -36,20 +36,24 @@ angular.module('gspreadsheet-report.controllers', [])
             googleSpreadsheet.load(function(result) {
                 data = JSON.stringify(result).replace(/,/g,",\n");
 
+                var boards = [];
+                $scope.boards = [];
                 try{
-                	$scope.boards = JSON.parse(data).data;
+                    boards = JSON.parse(data).data;
             	}catch(e){
             		alert("Проблема с обработкой данных. Проверьте источник! Запятых быть не должно!");
             	}
-                angular.forEach($scope.boards, function(board, index){
+                angular.forEach(boards, function(board, index){
                 	// собираем борды и меняем ; на , - иначе JSON выше падает
                     try{
-                	    eval("$scope.boards[index]={"+ board.split(";").join(",") + "}")
-                        $scope.boards[index].status = "success";
-                        if(!$scope.boards[index].size){
-                            $scope.boards[index].size="1x1";
+                        if(board!=""){
+                            eval("$scope.boards[index]={"+ board.split(";").join(",") + "}")
+                            $scope.boards[index].status = "success";
+                            if(!$scope.boards[index].size){
+                                $scope.boards[index].size="1x1";
+                            }
+                            $scope.boards[index].id = "board" + index;
                         }
-                        $scope.boards[index].id = "board" + index;
                     }catch(e){
                         var msg = e.message + " for text: " + board
                         $scope.boards[index]={error_text:msg}
@@ -65,12 +69,19 @@ angular.module('gspreadsheet-report.controllers', [])
         }
 
         function load_dashboard() {
-            var index = $routeParams.id;
-            var dashboard_id = "Dashboard" + index;
-            var key = localStorage[dashboard_id + ".key"]
-            if(key){
+            var key, dashboard_id;
+            if($routeParams.id){
+                // по индексу
+                var dashboard_id = "Dashboard" + $routeParams.id;
+                var key = localStorage[dashboard_id + ".key"];
                 $scope.dashboard_id = dashboard_id;
                 $scope.dashboard_title = localStorage[dashboard_id + ".title"]
+            }else if($routeParams.key){
+                // по ключу таблицы
+                key = $routeParams.key;
+            }
+            
+            if(key){
                 $scope.spreadsheet_key = key;
                 load_spreadsheet_data(key);
             }
